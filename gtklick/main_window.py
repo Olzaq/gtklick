@@ -42,6 +42,7 @@ class MainWindow:
             'on_tempo_scale_changed':           self.on_tempo_changed,
             'on_tempo_spin_changed':            self.on_tempo_changed,
             'on_tap_tempo':                     self.on_tap_tempo,
+            'on_increment':                     self.on_increment,
             'on_tempo_format_value':            self.on_tempo_format_value,
             # speed trainer
             'on_speedtrainer_enable_toggled':   self.on_speedtrainer_enable_toggled,
@@ -144,6 +145,10 @@ class MainWindow:
     @gui_callback
     def on_tap_tempo(self, b):
         klick.send('/simple/tap', ('d', time.time()))
+
+    @gui_callback
+    def on_increment(self, b):
+        klick.send('/simple/set_tempo', int(widgets['spin_tempo'].get_value()) + 10)
 
     def on_tempo_format_value(self, scale, value):
         if value < 40:      return "Larghissimo"
